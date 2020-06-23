@@ -5,8 +5,15 @@ import (
 	"strings"
 	"testing"
 )
+
+var (
+	data1 = "123ABC"
+	data2 = "123BCD"
+	data3 = "123CDE"
+)
+
 // nodeA's handle
-isContainsA := func(data interface{}) error {
+var isContainsA = func(data interface{}) error {
 	if str, ok := data.(string); ok {
 		if strings.Contains(str, "A") {
 			return errors.New("contains A")
@@ -18,7 +25,7 @@ isContainsA := func(data interface{}) error {
 }
 
 // nodeB's handle
-isContainsB := func(data interface{}) error {
+var isContainsB = func(data interface{}) error {
 	if str, ok := data.(string); ok {
 		if strings.Contains(str, "B") {
 			return errors.New("contains B")
@@ -39,9 +46,6 @@ func TestChain(t *testing.T) {
 	chain.addNode(nodeA)
 	chain.addNode(nodeB)
 
-	data1 := "123ABC"
-	data2 := "123BCD"
-	data3 := "123CDE"
 	// wrong:contains A or B
 	t.Log(chain.doHandle(data1))
 	t.Log(chain.doHandle(data2))
